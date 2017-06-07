@@ -8,7 +8,7 @@ OpenWhisk is a cloud-first distributed event-based programming service. It provi
 
 
 * [Quick Start](#quick-start) (Vagrant)
-* [Native development](#native-development) (Mac and Ubuntu)
+* [Native development](#native-development) (Mac, Ubuntu, and CentOS)
 * [Learn concepts and commands](#learn-concepts-and-commands)
 * [License](#license)
 * [Issues](#issues)
@@ -42,12 +42,13 @@ These steps were tested on Mac OS X El Capitan, Ubuntu 14.04.3 LTS and Windows u
 For more information about using OpenWhisk on Vagrant see the [tools/vagrant/README.md](tools/vagrant/README.md)
 
 ### Native development
- 
+
 Docker must be natively installed in order to build and deploy OpenWhisk.
 If you plan to make contributions to OpenWhisk, we recommend either a Mac or Ubuntu environment.
 
 * [Setup Mac for OpenWhisk](tools/macos/README.md)
 * [Setup Ubuntu for OpenWhisk](tools/ubuntu-setup/README.md)
+* [Setup CentOS for OpenWhisk](tools/centos-setup/README.md)
 
 ### Learn concepts and commands
 
