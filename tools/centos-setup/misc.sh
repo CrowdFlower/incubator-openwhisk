@@ -1,10 +1,10 @@
-#export DEBIAN_FRONTEND=noninteractive
+sudo yum update -y
+
+# Enable Extra Packages for Enterprise Linux repository for python-pip
+sudo yum install -y epel-release
 
 sudo timedatectl set-timezone UTC
-
-sudo yum update -y
 sudo yum install -y ntp
-
 sudo systemctl enable ntpd.service
 sudo systemctl restart ntpd.service
 sudo ntpq -c lpeer

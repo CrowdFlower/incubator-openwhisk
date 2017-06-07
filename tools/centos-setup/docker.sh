@@ -2,29 +2,30 @@
 
 set -ex
 
-sudo apt-get -y install apt-transport-https ca-certificates
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
-sudo sh -c "echo deb https://apt.dockerproject.org/repo ubuntu-trusty main  > /etc/apt/sources.list.d/docker.list"
-sudo apt-get -y update -qq
+sudo yum remove -y docker docker-common container-selinux docker-selinux docker-engine
 
-sudo apt-get purge lxc-docker
-sudo apt-cache policy docker-engine
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum-config-manager --disable docker-ce-edge
+sudo yum makecache fast
 
-# AUFS
-sudo apt-get -y install linux-image-extra-$(uname -r)
+# # AUFS
+# sudo apt-get -y install linux-image-extra-$(uname -r)
 
 # DOCKER
-sudo apt-get install -y --force-yes docker-engine=1.12.0-0~trusty
+sudo yum install -y docker-ce.x86_64
 
 # enable (security - use 127.0.0.1)
 sudo -E bash -c 'echo '\''DOCKER_OPTS="-H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock --storage-driver=aufs"'\'' >> /etc/default/docker'
+sudo -E bash -c 'echo -e '\''{\n  "storage-driver": "devicemapper"\n}'\'' > /etc/docker/daemon.json'
 sudo gpasswd -a `whoami` docker
 
 # Set DOCKER_HOST as an environment variable
 sudo -E bash -c 'echo '\''export DOCKER_HOST="tcp://0.0.0.0:4243"'\'' >> /etc/bash.bashrc'
 source /etc/bash.bashrc
 
-sudo service docker restart
+sudo systemctl enable docker.service
+sudo systemctl restart docker.service
 
 # do not run this command without a vagrant reload during provisioning
 # it gives an error that docker is not up (which the reload fixes).
