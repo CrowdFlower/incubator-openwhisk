@@ -1,13 +1,14 @@
-export DEBIAN_FRONTEND=noninteractive
+#export DEBIAN_FRONTEND=noninteractive
 
-echo "Etc/UTC" | sudo tee /etc/timezone
-sudo dpkg-reconfigure --frontend noninteractive tzdata
+sudo timedatectl set-timezone UTC
 
-sudo apt-get update -y
-sudo apt-get install -y ntp
+sudo yum update -y
+sudo yum install -y ntp
 
-sudo service ntp restart
+sudo systemctl enable ntpd.service
+sudo systemctl restart ntpd.service
 sudo ntpq -c lpeer
 
-sudo apt-get -y install git
-sudo apt-get -y install zip
+sudo yum install -y git
+sudo yum install -y zip
+sudo yum install -y wget
