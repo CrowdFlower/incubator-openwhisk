@@ -12,3 +12,6 @@ sudo ntpq -c lpeer
 sudo yum install -y git
 sudo yum install -y zip
 sudo yum install -y wget
+
+# required for `ansible-playbook prereq_build.yml`
+sudo yum install -y sshpass
